@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 
 <head>
     <meta charset="UTF-8">
@@ -9,8 +9,10 @@
     <title>MonalizaBezRamy</title>
 </head>
 
-<body>
-    <div class="text-2xl text-blue-500">Hello world!</div>
+<body class="bg-gray-400">
+    <div class="container mx-auto max-w-2xl px-2">
+        {{ $slot }}
+    </div>
 </body>
 
 </html>
