@@ -16,7 +16,7 @@ class PostController extends Controller
 
         $posts = Post::query()->type($type)->latest()->get();
 
-        return view('posts.index', ['posts' => $posts]);
+        return view('post.index', ['posts' => $posts]);
     }
 
     /**
