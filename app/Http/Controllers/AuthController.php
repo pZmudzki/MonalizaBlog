@@ -30,11 +30,9 @@ class AuthController extends Controller
         $remember = $request->filled('remember');
 
         if (Auth::attempt($credentials, $remember)) {
-            dd('gites');
             return redirect()->intended();
         } else {
-            dd('nie gites');
-            return redirect('auth.create')->with('error', 'Wprowadzono zły login lub hasło');
+            return redirect()->route('auth.create')->with('error', 'Wprowadzono zły login lub hasło');
         }
     }
 
