@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Post;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 
 class PostController extends Controller
 {
@@ -12,6 +13,8 @@ class PostController extends Controller
      */
     public function index(Request $request)
     {
+        Gate::authorize('viewAny', Post::class);
+
         $type = $request->query('type');
 
         $posts = Post::query()->type($type)->latest()->get();
