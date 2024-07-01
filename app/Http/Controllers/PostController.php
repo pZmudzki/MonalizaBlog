@@ -13,8 +13,6 @@ class PostController extends Controller
      */
     public function index(Request $request)
     {
-        Gate::authorize('viewAny', Post::class);
-
         $type = $request->query('type');
 
         $posts = Post::query()->type($type)->latest()->get();
@@ -27,6 +25,8 @@ class PostController extends Controller
      */
     public function create()
     {
+        Gate::authorize('create', Post::class);
+
         return view('post.create');
     }
 
@@ -35,6 +35,8 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
+        Gate::authorize('create', Post::class);
+
         $validatedData = $request->validate([
             'title' => 'required|min:3|max:255',
             'content' => 'required',
