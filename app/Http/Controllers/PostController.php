@@ -63,7 +63,9 @@ class PostController extends Controller
      */
     public function edit(Post $post)
     {
-        //
+        Gate::authorize('update', Post::class);
+
+        return view('post.edit', ['post' => $post]);
     }
 
     /**
@@ -71,7 +73,19 @@ class PostController extends Controller
      */
     public function update(Request $request, Post $post)
     {
-        //
+        Gate::authorize('update', Post::class);
+
+        $validatedData = $request->validate([
+            'title' => 'required|min:3|max:255',
+            'content' => 'required',
+            'type' => 'required|in:' . implode(",", Post::$types),
+            // 'images' => 'mimes:jpg,bmp,png',
+            // 'videos' => 'mimes:avi,mpeg,mp4'
+        ]);
+
+        $post->update($validatedData);
+
+        return redirect()->route('post.index')->with('success', 'Pomyślnie utworzono nowy post');
     }
 
     /**
