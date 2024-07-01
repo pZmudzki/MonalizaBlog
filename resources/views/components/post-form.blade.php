@@ -1,8 +1,11 @@
 <x-layout>
     <x-card>
-        <form action="{{ $post ? route('post.update') : route('post.store') }}" method="POST"
+        <form action="{{ $post ? route('post.update', $post) : route('post.store') }}" method="POST"
             enctype="multipart/form-data" class="flex flex-col gap-4">
             @csrf
+            @if ($post)
+                @method('PUT')
+            @endif
             <div class="flex flex-col">
                 <label for="title">Tytuł:</label>
                 <input type="text" name="title" id="title" value="{{ $post->title ?? old('title') }}"

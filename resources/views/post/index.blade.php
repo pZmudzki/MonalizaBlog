@@ -11,7 +11,13 @@
                             <span>Comments: 0</span>
                             <span>Views: 0</span>
                         </div>
-                        <a href="{{ route('post.show', $post) }}" class="text-blue-700">Show more</a>
+                        <div class="flex gap-4">
+                            <a href="{{ route('post.show', $post) }}" class="text-blue-700">Show more</a>
+                            @if (auth()->user())
+                                <a href="{{ route('post.edit', $post) }}" class="text-blue-700">Edytuj
+                                    post</a>
+                            @endif
+                        </div>
                     </div>
                 </x-post-card>
             </li>
