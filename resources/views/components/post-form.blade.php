@@ -48,5 +48,12 @@
 
             <button class="text-center border border-black bg-white">{{ $post ? 'Zmień' : 'Utwórz' }}</button>
         </form>
+        @if ($post)
+            <form action="{{ route('post.destroy', ['post' => $post]) }}" method="POST" class="mt-4">
+                @csrf
+                @method('DELETE')
+                <button class="text-center border border-black bg-red-400 w-full">Usuń post</button>
+            </form>
+        @endif
     </x-card>
 </x-layout>

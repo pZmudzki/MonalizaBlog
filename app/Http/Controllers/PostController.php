@@ -93,6 +93,10 @@ class PostController extends Controller
      */
     public function destroy(Post $post)
     {
-        //
+        Gate::authorize('update', Post::class);
+
+        $post->delete();
+
+        return redirect()->route('post.index')->with('success', 'Pomyślnie usunięto post');
     }
 }
