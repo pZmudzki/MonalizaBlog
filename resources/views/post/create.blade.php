@@ -1,1 +1,1 @@
-<x-post-form />
+<x-post-form :post="null" />

@@ -13,9 +13,7 @@
             </div>
             <div class="flex flex-col">
                 <label for="content">Treść:</label>
-                <textarea name="content" id="content" class="rounded-md border border-black px-2" rows="5">
-                    {{ $post->content ?? old('content') }}
-                  </textarea>
+                <textarea name="content" id="content" class="rounded-md border border-black px-2" rows="12">{{ $post->content ?? old('content') }}</textarea>
             </div>
             <div class="flex flex-col">
                 <label for="type">Typ:</label>
@@ -31,16 +29,20 @@
                 <label for="images">Zdjęcia:</label>
                 <input type="file" name="images" accept="image/*" multiple id="images"
                     value="{{ old('images') }}" class="border border-black">
-                @if ($post->images)
-                    {{-- display images --}}
+                @if ($post)
+                    @if ($post->images)
+                        {{-- display images --}}
+                    @endif
                 @endif
             </div>
             <div class="flex flex-col">
                 <label for="videos">Nagrania:</label>
                 <input type="file" name="videos" accept="video/*" multiple id="videos"
                     value="{{ old('videos') }}" class="border border-black">
-                @if ($post->videos)
-                    {{-- display videos --}}
+                @if ($post)
+                    @if ($post->videos)
+                        {{-- display videos --}}
+                    @endif
                 @endif
             </div>
 
