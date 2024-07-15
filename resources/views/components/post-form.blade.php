@@ -1,7 +1,21 @@
 <x-layout>
     <x-card>
+        @if ($post)
+            <div class="mb-4 flex items-center justify-between">
+                @if ($post->archived)
+                    <h2>Post zarchiwizowany</h2>
+                @endif
+                <form class="ml-auto" action="{{ route('post.archive', ['post' => $post]) }}" method="POST">
+                    @csrf
+                    @method('PUT')
+                    <button class="text-center border border-black {{ $post->archived ? 'bg-white' : 'bg-yellow-200' }}">
+                        {{ $post->archived ? 'Upublicznij' : 'Zarchiwizuj' }}
+                    </button>
+                </form>
+            </div>
+        @endif
         <form action="{{ $post ? route('post.update', $post) : route('post.store') }}" method="POST"
-            enctype="multipart/form-data" class="flex flex-col gap-4">
+            enctype="multipart/form-data" class="flex flex-col gap-4 mb-4">
             @csrf
             @if ($post)
                 @method('PUT')

@@ -9,6 +9,7 @@ Route::get('/', function () {
     return redirect()->route('post.index');
 });
 
+Route::put('/post/{post}/archive', [PostController::class, 'archive'])->name('post.archive');
 Route::resource('post', PostController::class);
 
 Route::resource('auth', AuthController::class)->only(['create', 'store']);

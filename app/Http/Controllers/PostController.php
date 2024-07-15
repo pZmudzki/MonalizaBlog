@@ -88,6 +88,19 @@ class PostController extends Controller
         return redirect()->route('post.index')->with('success', 'Pomyślnie utworzono nowy post');
     }
 
+    public function archive(Post $post)
+    {
+        Gate::authorize('update', Post::class);
+
+        $archived = $post->archived;
+
+        $post->update([
+            'archived' => !$archived,
+        ]);
+
+        return redirect()->route('post.edit', ['post' => $post])->with('success', 'Pomyślnie zarchiwizowano post');
+    }
+
     /**
      * Remove the specified resource from storage.
      */
