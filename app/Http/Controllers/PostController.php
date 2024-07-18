@@ -6,6 +6,9 @@ use App\Models\Post;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
 
+use App\Models\Image;
+use App\Models\Video;
+
 class PostController extends Controller
 {
     /**
@@ -41,11 +44,39 @@ class PostController extends Controller
             'title' => 'required|min:3|max:255',
             'content' => 'required',
             'type' => 'required|in:' . implode(",", Post::$types),
-            // 'images' => 'mimes:jpg,bmp,png',
-            // 'videos' => 'mimes:avi,mpeg,mp4'
+            'images.*' => 'mimes:jpg,bmp,png,webp|max:4096',
+            'videos.*' => 'mimes:avi,mpeg,mp4|max:16384'
         ]);
 
-        $createdPost = Post::create($validatedData);
+        $createdPost = Post::create([
+            'title' => $validatedData['title'],
+            'content' => $validatedData['content'],
+            'type' => $validatedData['type'],
+        ]);
+
+        $images = $request->file('images');
+        if ($validatedData['images']) {
+            foreach ($images as $image) {
+                $name = $image->getClientOriginalName();
+                $path = $image->store('images', 'private');
+                $createdPost->images()->create([
+                    'filename' => $name,
+                    'filepath' => $path
+                ]);
+            }
+        }
+
+        $videos = $request->file('videos');
+        if ($validatedData['videos']) {
+            foreach ($videos as $video) {
+                $name = $video->getClientOriginalName();
+                $path = $video->store('videos', 'private');
+                $createdPost->videos()->create([
+                    'filename' => $name,
+                    'filepath' => $path
+                ]);
+            }
+        }
 
         return redirect()->route('post.index')->with('success', 'Pomyślnie utworzono nowy post');
     }

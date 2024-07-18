@@ -39,9 +39,11 @@
                     @endforeach
                 </select>
             </div>
+
+            {{-- files --}}
             <div class="flex flex-col">
                 <label for="images">Zdjęcia:</label>
-                <input type="file" name="images" accept="image/*" multiple id="images"
+                <input type="file" name="images[]" accept="image/*" multiple id="images"
                     value="{{ old('images') }}" class="border border-black">
                 @if ($post)
                     @if ($post->images)
@@ -51,7 +53,7 @@
             </div>
             <div class="flex flex-col">
                 <label for="videos">Nagrania:</label>
-                <input type="file" name="videos" accept="video/*" multiple id="videos"
+                <input type="file" name="videos[]" accept="video/*" multiple id="videos"
                     value="{{ old('videos') }}" class="border border-black">
                 @if ($post)
                     @if ($post->videos)
@@ -59,6 +61,7 @@
                     @endif
                 @endif
             </div>
+            {{-- files --}}
 
             <button class="text-center border border-black bg-white">{{ $post ? 'Zmień' : 'Utwórz' }}</button>
         </form>

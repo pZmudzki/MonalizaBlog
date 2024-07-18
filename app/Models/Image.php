@@ -10,7 +10,7 @@ class Image extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['url'];
+    protected $fillable = ['filename', 'filepath'];
 
     public function post(): BelongsTo
     {
