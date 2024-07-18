@@ -7,6 +7,7 @@ use Illuminate\Database\Query\Builder as QueryBuilder;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Post extends Model
 {
@@ -15,6 +16,16 @@ class Post extends Model
     public static array $types = ['wierszem_pisane', 'scenariusze_pisane_życiem', 'z_medycznego_punktu_widzenia', 'taniec'];
 
     protected $fillable = ['title', 'content', 'type', 'archived'];
+
+    public function images(): HasMany
+    {
+        return $this->hasMany(Image::class);
+    }
+
+    public function videos(): HasMany
+    {
+        return $this->hasMany(Video::class);
+    }
 
     public function scopeType(Builder $query, string|null $type): QueryBuilder | Builder
     {
