@@ -58,7 +58,7 @@ class PostController extends Controller
         if ($validatedData['images']) {
             foreach ($images as $image) {
                 $name = $image->getClientOriginalName();
-                $path = $image->store('images', 'private');
+                $path = $image->store('images', 'public');
                 $createdPost->images()->create([
                     'filename' => $name,
                     'filepath' => $path
@@ -70,7 +70,7 @@ class PostController extends Controller
         if ($validatedData['videos']) {
             foreach ($videos as $video) {
                 $name = $video->getClientOriginalName();
-                $path = $video->store('videos', 'private');
+                $path = $video->store('videos', 'public');
                 $createdPost->videos()->create([
                     'filename' => $name,
                     'filepath' => $path
