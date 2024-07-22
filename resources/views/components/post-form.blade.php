@@ -41,75 +41,53 @@
             </div>
 
             {{-- files --}}
+
             <div class="flex flex-col">
                 <label for="images">Zdjęcia:</label>
                 <input type="file" name="images[]" accept="image/*" multiple id="images"
                     value="{{ old('images') }}" class="border border-black">
-                @if ($post)
-                    @if ($post->images)
-                        {{-- display images --}}
-                        <ul class="list-none grid grid-cols-3 gap-2">
-                            @forelse ($post->images as $image)
-                                <li class="relative">
-                                    <img src="{{ url('/') }}/storage/{{ $image->filepath }}"
-                                        alt="{{ $image->filename }}">
-
-                                    <p class="truncate">{{ $image->filename }}</p>
-
-                                    {{-- button to delete file --}}
-                                    <div class="absolute top-0 right-0 text-sm font-bold p-1 bg-red-400">
-                                        <label for="{{ $image->id }}">Usuń</label>
-                                        <input type="checkbox" id="{{ $image->id }}" name="deleteImages[]"
-                                            value="{{ $image->id }}" />
-                                    </div>
-                                    {{-- button to delete file --}}
-                                </li>
-
-                            @empty
-                                <li class="text-center py-2">Post nie ma dołączonych zdjęć</li>
-                            @endforelse
-                        </ul>
-                        {{-- display images --}}
-                    @endif
-                @endif
             </div>
             <div class="flex flex-col">
                 <label for="videos">Nagrania:</label>
                 <input type="file" name="videos[]" accept="video/*" multiple id="videos"
                     value="{{ old('videos') }}" class="border border-black">
+            </div>
+            <div>
                 @if ($post)
-                    @if ($post->videos)
-                        {{-- display videos --}}
-
-                        <ul class="list-none grid grid-cols-3 gap-2">
-                            @forelse ($post->videos as $video)
+                    @if ($post->files)
+                        {{-- display files --}}
+                        <ul class="list-none grid grid-cols-3 gap-2 mt-4">
+                            @forelse ($post->files as $file)
                                 <li class="relative">
+                                    @if ($file->type === 'image')
+                                        <img src="{{ url('/') }}/storage/{{ $file->filepath }}"
+                                            alt="{{ $file->filename }}">
+                                    @else
+                                        <video controls>
+                                            <source src="{{ url('/') }}/storage/{{ $file->filepath }}" />
+                                        </video>
+                                    @endif
 
-                                    <video controls>
-                                        <source src="{{ url('/') }}/storage/{{ $video->filepath }}"
-                                            type="video/mp4">
-                                    </video>
-
-                                    <p class="truncate">{{ $video->filename }}</p>
+                                    <p class="truncate">{{ $file->filename }}</p>
 
                                     {{-- button to delete file --}}
                                     <div class="absolute top-0 right-0 text-sm font-bold p-1 bg-red-400">
-                                        <label for="{{ $video->id }}">Usuń</label>
-                                        <input type="checkbox" id="{{ $video->id }}" name="deleteVideos[]"
-                                            value="{{ $video->id }}" />
+                                        <label for="{{ $file->id }}">Usuń</label>
+                                        <input type="checkbox" id="{{ $file->id }}" name="deleteFiles[]"
+                                            value="{{ $file->id }}" />
                                     </div>
                                     {{-- button to delete file --}}
                                 </li>
 
                             @empty
-                                <li class="text-center py-2">Post nie ma dołączonych filmów</li>
+                                <li class="text-center py-2">Post nie ma dołączonych plików</li>
                             @endforelse
                         </ul>
-
-                        {{-- display videos --}}
+                        {{-- display images --}}
                     @endif
                 @endif
             </div>
+
             {{-- files --}}
 
             <button class="text-center border border-black bg-white">{{ $post ? 'Zmień' : 'Utwórz' }}</button>
