@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Post;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Storage;
 
 use App\Models\Image;
 use App\Models\Video;
@@ -110,13 +111,78 @@ class PostController extends Controller
             'title' => 'required|min:3|max:255',
             'content' => 'required',
             'type' => 'required|in:' . implode(",", Post::$types),
-            // 'images' => 'mimes:jpg,bmp,png',
-            // 'videos' => 'mimes:avi,mpeg,mp4'
+            'images.*' => 'mimes:jpg,bmp,png,webp|max:4096',
+            'videos.*' => 'mimes:avi,mpeg,mp4|max:16384',
+            'deleteImages' => 'array',
+            'deleteVideos' => 'array',
         ]);
 
-        $post->update($validatedData);
+        //image deletion logic
+        if (array_key_exists('deleteImages', $validatedData)) {
+            foreach ($validatedData['deleteImages'] as $imageId) {
 
-        return redirect()->route('post.index')->with('success', 'Pomyślnie utworzono nowy post');
+                // find an image
+                $image = Image::find($imageId);
+
+                if (Storage::exists('public/' . $image->filepath)) {
+                    // // delete image from storage
+                    Storage::delete('public/' . $image->filepath);
+
+                    // //delete image from db
+                    $image->delete();
+                }
+            }
+        }
+
+
+        // video deletion logic
+        if (array_key_exists('deleteVideos', $validatedData)) {
+            foreach ($validatedData['deleteVideos'] as $videoId) {
+
+                // find an image
+                $video = Video::find($videoId);
+
+                if (Storage::exists('public/' . $video->filepath)) {
+                    // // delete image from storage
+                    Storage::delete('public/' . $video->filepath);
+
+                    // //delete image from db
+                    $video->delete();
+                }
+            }
+        }
+
+        $images = $request->file('images');
+        if ($images) {
+            foreach ($images as $image) {
+                $name = $image->getClientOriginalName();
+                $path = $image->store('images', 'public');
+                $post->images()->create([
+                    'filename' => $name,
+                    'filepath' => $path
+                ]);
+            }
+        }
+
+        $videos = $request->file('videos');
+        if ($videos) {
+            foreach ($videos as $video) {
+                $name = $video->getClientOriginalName();
+                $path = $video->store('videos', 'public');
+                $post->videos()->create([
+                    'filename' => $name,
+                    'filepath' => $path
+                ]);
+            }
+        }
+
+        $post->update([
+            'title' => $validatedData['title'],
+            'content' => $validatedData['content'],
+            'type' => $validatedData['type'],
+        ]);
+
+        return redirect()->route('post.edit', ['post' => $post])->with('success', 'Pomyślnie edytowano post.');
     }
 
     public function archive(Post $post)
