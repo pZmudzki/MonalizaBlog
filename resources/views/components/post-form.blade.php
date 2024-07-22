@@ -48,6 +48,25 @@
                 @if ($post)
                     @if ($post->images)
                         {{-- display images --}}
+                        <ul class="list-none grid grid-cols-3">
+                            @forelse ($post->images as $image)
+                                <li class="relative">
+                                    <img src="{{ url('/') }}/storage/{{ $image->filepath }}"
+                                        alt="{{ $image->filename }}">
+                                    {{-- button to delete file --}}
+                                    <div class="absolute top-0 right-0 text-sm font-bold p-1 bg-red-400">
+                                        <label for="{{ $image->id }}">Usuń</label>
+                                        <input type="checkbox" id="{{ $image->id }}" name="deleteImages[]"
+                                            value="{{ $image->id }}" />
+                                    </div>
+                                    {{-- button to delete file --}}
+                                </li>
+
+                            @empty
+                                <li class="text-center py-2">Post nie ma dołączonych zdjęć</li>
+                            @endforelse
+                        </ul>
+                        {{-- display images --}}
                     @endif
                 @endif
             </div>
@@ -57,6 +76,52 @@
                     value="{{ old('videos') }}" class="border border-black">
                 @if ($post)
                     @if ($post->videos)
+                        {{-- display videos --}}
+
+                        <ul class="list-none grid grid-cols-3">
+                            @forelse ($post->videos as $video)
+                                <li class="relative">
+
+                                    <video controls>
+                                        <source src="{{ url('/') }}/storage/{{ $video->filepath }}"
+                                            type="video/mp4">
+                                    </video>
+
+                                    {{-- button to delete file --}}
+                                    <div class="absolute top-0 right-0 text-sm font-bold p-1 bg-red-400">
+                                        <label for="{{ $video->id }}">Usuń</label>
+                                        <input type="checkbox" id="{{ $video->id }}" name="deleteVideos[]"
+                                            value="{{ $video->id }}" />
+                                    </div>
+                                    {{-- button to delete file --}}
+                                </li>
+
+                            @empty
+                                <li class="text-center py-2">Post nie ma dołączonych filmów</li>
+                            @endforelse
+
+                            @forelse ($post->videos as $video)
+                                <li class="relative">
+
+                                    <video class=" max-h-96" controls>
+                                        <source src="{{ url('/') }}/storage/{{ $video->filepath }}"
+                                            type="video/mp4">
+                                    </video>
+
+                                    {{-- button to delete file --}}
+                                    <div class="absolute top-0 right-0 text-sm font-bold p-1 bg-red-400">
+                                        <label for="{{ $video->id }}">Usuń</label>
+                                        <input type="checkbox" id="{{ $video->id }}" name="deleteVideos[]"
+                                            value="{{ $video->id }}" />
+                                    </div>
+                                    {{-- button to delete file --}}
+                                </li>
+
+                            @empty
+                                <li class="text-center py-2">Post nie ma dołączonych filmów</li>
+                            @endforelse
+                        </ul>
+
                         {{-- display videos --}}
                     @endif
                 @endif
