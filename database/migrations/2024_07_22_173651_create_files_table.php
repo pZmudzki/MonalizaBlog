@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('files', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(Post::class)->constrained();
+            $table->foreignIdFor(Post::class)->constrained()->onDelete('cascade');
             $table->enum('type', ['image', 'video']);
             $table->string('filepath');
             $table->string('filename');
