@@ -48,11 +48,14 @@
                 @if ($post)
                     @if ($post->images)
                         {{-- display images --}}
-                        <ul class="list-none grid grid-cols-3">
+                        <ul class="list-none grid grid-cols-3 gap-2">
                             @forelse ($post->images as $image)
                                 <li class="relative">
                                     <img src="{{ url('/') }}/storage/{{ $image->filepath }}"
                                         alt="{{ $image->filename }}">
+
+                                    <p class="truncate">{{ $image->filename }}</p>
+
                                     {{-- button to delete file --}}
                                     <div class="absolute top-0 right-0 text-sm font-bold p-1 bg-red-400">
                                         <label for="{{ $image->id }}">Usuń</label>
@@ -78,7 +81,7 @@
                     @if ($post->videos)
                         {{-- display videos --}}
 
-                        <ul class="list-none grid grid-cols-3">
+                        <ul class="list-none grid grid-cols-3 gap-2">
                             @forelse ($post->videos as $video)
                                 <li class="relative">
 
@@ -87,26 +90,7 @@
                                             type="video/mp4">
                                     </video>
 
-                                    {{-- button to delete file --}}
-                                    <div class="absolute top-0 right-0 text-sm font-bold p-1 bg-red-400">
-                                        <label for="{{ $video->id }}">Usuń</label>
-                                        <input type="checkbox" id="{{ $video->id }}" name="deleteVideos[]"
-                                            value="{{ $video->id }}" />
-                                    </div>
-                                    {{-- button to delete file --}}
-                                </li>
-
-                            @empty
-                                <li class="text-center py-2">Post nie ma dołączonych filmów</li>
-                            @endforelse
-
-                            @forelse ($post->videos as $video)
-                                <li class="relative">
-
-                                    <video class=" max-h-96" controls>
-                                        <source src="{{ url('/') }}/storage/{{ $video->filepath }}"
-                                            type="video/mp4">
-                                    </video>
+                                    <p class="truncate">{{ $video->filename }}</p>
 
                                     {{-- button to delete file --}}
                                     <div class="absolute top-0 right-0 text-sm font-bold p-1 bg-red-400">
