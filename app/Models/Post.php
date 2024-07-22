@@ -17,19 +17,9 @@ class Post extends Model
 
     protected $fillable = ['title', 'content', 'type', 'archived'];
 
-    public function images(): HasMany
-    {
-        return $this->hasMany(Image::class);
-    }
-
     public function files(): HasMany
     {
         return $this->hasMany(File::class);
-    }
-
-    public function videos(): HasMany
-    {
-        return $this->hasMany(Video::class);
     }
 
     public function scopeType(Builder $query, string|null $type): QueryBuilder | Builder
