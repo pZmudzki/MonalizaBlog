@@ -22,6 +22,11 @@ class Post extends Model
         return $this->hasMany(File::class);
     }
 
+    public function comments(): HasMany
+    {
+        return $this->hasMany(Comment::class);
+    }
+
     public function scopeType(Builder $query, string|null $type): QueryBuilder | Builder
     {
         if (!in_array($type, self::$types)) {

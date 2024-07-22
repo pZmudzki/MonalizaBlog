@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\User;
 use App\Models\Post;
+use App\Models\Comment;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -19,6 +20,14 @@ class DatabaseSeeder extends Seeder
             'email' => 'test@test.com',
         ]);
 
-        Post::factory(25)->create();
+        $posts = Post::factory(25)->create();
+
+        foreach ($posts as $post) {
+            for ($i = 0; $i < rand(1, 8); $i++) {
+                Comment::factory()->create([
+                    'post_id' => $post->id,
+                ]);
+            }
+        }
     }
 }
