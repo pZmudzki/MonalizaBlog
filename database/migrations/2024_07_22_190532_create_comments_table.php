@@ -21,7 +21,7 @@ return new class extends Migration
             $table->string('ip_address');
             $table->text('content');
             $table->foreignIdFor(Post::class)->constrained()->onDelete('cascade');;
-            $table->boolean('starred');
+            $table->boolean('starred')->default(false);
 
             $table->timestamps();
         });

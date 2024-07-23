@@ -18,7 +18,7 @@
             </div>
         </x-post-card>
 
-        <x-comment-form />
+        <x-comment-form :post="$post" />
 
         <x-card>
             <ul class="flex flex-col divide-y divide-slate-400">

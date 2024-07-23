@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Comment;
+use App\Models\Post;
 use Illuminate\Http\Request;
 
 class CommentController extends Controller
@@ -28,7 +29,21 @@ class CommentController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validatedData = $request->validate([
+            'firstname' => 'required|min:2|max:255',
+            'lastname' => 'required|min:2|max:255',
+            'email' => 'required|email',
+            'content' => 'required|min:5'
+        ]);
+
+        $post_id = $request->query('post');
+
+        Post::find($post_id)->comments()->create([
+            ...$validatedData,
+            'ip_address' => $request->ip()
+        ]);
+
+        return redirect()->route('post.show', $post_id)->with(['success', 'Pomyślnie dodano komentarz!']);
     }
 
     /**

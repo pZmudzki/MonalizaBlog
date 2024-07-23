@@ -1,6 +1,7 @@
 <x-card>
     <h1 class="font-bold mb-4">Dodaj komentarz</h1>
-    <form action="{{ route('comment.store') }}" method="POST">
+    {{-- {{ dd($post) }} --}}
+    <form action="{{ route('comment.store', ['post' => $post->id]) }}" method="POST">
         @csrf
         <div class="flex gap-2 mb-2">
             <div>
@@ -13,7 +14,7 @@
             </div>
             <div class="grow">
                 <x-label for="email" required>Email</x-label>
-                <x-text-input name="lastname" value="{{ old('lastname') }}" placeholder="jan.kowalski@gmail.com" />
+                <x-text-input name="email" value="{{ old('email') }}" placeholder="jan.kowalski@gmail.com" />
             </div>
         </div>
         <div class="mb-2">
