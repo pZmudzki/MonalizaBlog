@@ -21,16 +21,16 @@
                 @method('PUT')
             @endif
             <div class="flex flex-col">
-                <x-label for="title" required>Tytuł:</x-label>
+                <x-label for="title" required>Tytuł</x-label>
                 <x-text-input name="title" value="{{ $post->title ?? old('title') }}>" />
             </div>
             <div class="flex
                     flex-col">
-                <x-label for="content" required>Treść:</x-label>
+                <x-label for="content" required>Treść</x-label>
                 <x-text-input type="textarea" name="content" value="{{ $post->content ?? old('content') }}" />
             </div>
             <div class="flex flex-col">
-                <x-label for="type" required>Typ:</x-label>
+                <x-label for="type" required>Typ</x-label>
                 <select name="type" id="type" value="{{ $post->type ?? old('type') }}"
                     class="rounded-md border border-black px-2">
                     @foreach (['wierszem_pisane' => 'Wierszem Pisane', 'scenariusze_pisane_życiem' => 'Scenariusze Pisane Życiem', 'z_medycznego_punktu_widzenia' => 'Z Medycznego Punktu Widzenia', 'taniec' => 'Taniec'] as $key => $value)
@@ -43,12 +43,12 @@
             {{-- files --}}
 
             <div class="flex flex-col">
-                <x-label for="images">Zdjęcia:</x-label>
+                <x-label for="images">Zdjęcia</x-label>
                 <input type="file" name="images[]" accept="image/*" multiple id="images"
                     value="{{ old('images') }}" class="border border-black">
             </div>
             <div class="flex flex-col">
-                <x-label for="videos">Nagrania:</x-label>
+                <x-label for="videos">Nagrania</x-label>
                 <input type="file" name="videos[]" accept="video/*" multiple id="videos"
                     value="{{ old('videos') }}" class="border border-black">
             </div>
