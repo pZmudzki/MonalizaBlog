@@ -8,7 +8,7 @@
                     </div>
                     <div class="flex gap-2 items-center justify-between">
                         <div>
-                            <span>Comments: 0</span>
+                            <span>Comments: {{ $post->comments_count }}</span>
                             <span>Views: 0</span>
                         </div>
                         <div class="flex gap-4">

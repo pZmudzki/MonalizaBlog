@@ -18,9 +18,16 @@ class PostController extends Controller
     {
         $type = $request->query('type');
 
-        $posts = Post::query()->type($type)->latest()->get();
+        $posts = Post::query()
+            ->type($type)
+            ->latest()
+            ->withCount('comments')
+            ->get();
 
-        return view('post.index', ['posts' => $posts]);
+        return view(
+            'post.index',
+            ['posts' => $posts]
+        );
     }
 
     /**
