@@ -20,7 +20,6 @@ class CommentFactory extends Factory
             'firstname' => fake()->firstName(),
             'lastname' => fake()->lastName(),
             'email' => fake()->email(),
-            'ip_address' => fake()->ipv6(),
             'content' => fake()->paragraphs(rand(1, 3), true),
             'starred' => fake()->boolean(15)
         ];

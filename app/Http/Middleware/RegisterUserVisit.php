@@ -23,11 +23,12 @@ class RegisterUserVisit
 
         if (!$request->session()->has('has_visited')) {
 
-            Visit::create([
+            $visit = Visit::create([
                 'ip_address' => $request->ip(),
             ]);
 
             session(['has_visited' => true]);
+            session(['current_visit' => $visit->id]);
         }
 
         return $next($request);

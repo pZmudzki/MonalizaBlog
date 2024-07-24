@@ -17,7 +17,8 @@ class VisitFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'ip_address' => fake()->ipv4(),
+            'created_at' => fake()->dateTime()
         ];
     }
 }
