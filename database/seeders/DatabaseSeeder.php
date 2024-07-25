@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use App\Models\User;
 use App\Models\Post;
 use App\Models\Comment;
+use App\Models\View;
 use App\Models\Visit;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -29,11 +30,26 @@ class DatabaseSeeder extends Seeder
             if (rand(0, 2) === 0) {
                 foreach ($posts as $post) {
                     if (rand(0, 20) === 0) {
+                        View::factory()->create([
+                            'visit_id' => $visit->id,
+                            'post_id' => $post->id,
+                        ]);
+
                         Comment::factory()->create([
                             'visit_id' => $visit->id,
                             'post_id' => $post->id,
                         ]);
                     }
+                }
+            }
+
+            foreach ($posts as $post) {
+                if (rand(0, 5) === 0) {
+
+                    View::factory()->create([
+                        'visit_id' => $visit->id,
+                        'post_id' => $post->id,
+                    ]);
                 }
             }
         }
