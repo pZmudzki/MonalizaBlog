@@ -6,6 +6,7 @@ use App\Models\Comment;
 use App\Models\Post;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\RateLimiter;
 
 class CommentController extends Controller
 {
@@ -24,14 +25,6 @@ class CommentController extends Controller
         $post_id = $request->query('post');
 
         $visit_id = $request->session()->get('current_visit');
-
-        $comment_exists = Comment::where('post_id', '=', $post_id)
-            ->where('visit_id', '=', $visit_id)
-            ->exists();
-
-        if ($comment_exists) {
-            return redirect()->back()->with(['error', 'Pod każdym postem można dodać tylko po jednym komentarzu na użytkownika']);
-        }
 
         Post::find($post_id)->comments()->create([
             ...$validatedData,
