@@ -5,25 +5,10 @@ namespace App\Http\Controllers;
 use App\Models\Comment;
 use App\Models\Post;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 
 class CommentController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
-    {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
     /**
      * Store a newly created resource in storage.
      */
@@ -38,34 +23,28 @@ class CommentController extends Controller
 
         $post_id = $request->query('post');
 
+        $visit_id = $request->session()->get('current_visit');
+
+        $comment_exists = Comment::where('post_id', '=', $post_id)
+            ->where('visit_id', '=', $visit_id)
+            ->exists();
+
+        if ($comment_exists) {
+            return redirect()->route('post.show', $post_id)->with(['error', 'Pod każdym postem można dodać tylko po jednym komentarzu na użytkownika']);
+        }
+
         Post::find($post_id)->comments()->create([
             ...$validatedData,
-            'ip_address' => $request->ip()
+            'visit_id' => $visit_id
         ]);
 
         return redirect()->route('post.show', $post_id)->with(['success', 'Pomyślnie dodano komentarz!']);
     }
 
     /**
-     * Display the specified resource.
+     * Highlight a comment by giving it a star.
      */
-    public function show(Comment $comment)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Comment $comment)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Comment $comment)
+    public function highlight(Request $request, Comment $comment)
     {
         //
     }

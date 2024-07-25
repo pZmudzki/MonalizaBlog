@@ -15,7 +15,8 @@ Route::resource('post', PostController::class)->only(['show'])->middleware(['vis
 Route::resource('post', PostController::class)->except(['index', 'show']);
 Route::put('/post/{post}/archive', [PostController::class, 'archive'])->name('post.archive');
 
-Route::resource('comment', CommentController::class);
+Route::resource('comment', CommentController::class)->only(['store', 'destroy']);
+Route::put('/comment/{comment}/highlight', [CommentController::class, 'highlight'])->name('comment.highlight');
 
 Route::get('login', fn () => to_route('auth.create'))->name('login');
 Route::delete('logout', fn () => to_route('auth.destroy'))->name('logout');
