@@ -10,6 +10,8 @@ class View extends Model
 {
     use HasFactory;
 
+    protected $fillable = ['visit_id'];
+
     public function post(): BelongsTo
     {
         return $this->belongsTo(Post::class);
