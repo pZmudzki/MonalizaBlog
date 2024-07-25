@@ -9,6 +9,11 @@
                     @method('PUT')
                     <button class="text-2xl font-bold text-yellow-700">{{ $comment->starred ? '★' : '☆' }}</button>
                 </form>
+                <form action="{{ route('comment.destroy', $comment) }}" method="POST">
+                    @csrf
+                    @method('DELETE')
+                    <button class="p-1 bg-red-400">Usuń</button>
+                </form>
             @endif
         </div>
     </div>
