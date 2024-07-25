@@ -199,7 +199,7 @@ class PostController extends Controller
      */
     public function destroy(Post $post)
     {
-        Gate::authorize('update', Post::class);
+        Gate::authorize('delete', Post::class);
 
         $post->delete();
 

@@ -11,7 +11,7 @@ class CommentPolicy
     /**
      * Determine whether the user can update the model.
      */
-    public function update(User $user, Comment $comment): bool
+    public function update(): bool
     {
         return auth()->user() != null;
     }
@@ -19,7 +19,7 @@ class CommentPolicy
     /**
      * Determine whether the user can delete the model.
      */
-    public function delete(User $user, Comment $comment): bool
+    public function delete(): bool
     {
         return auth()->user() != null;
     }
