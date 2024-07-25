@@ -27,6 +27,11 @@ class Post extends Model
         return $this->hasMany(Comment::class);
     }
 
+    public function views(): HasMany
+    {
+        return $this->hasMany(View::class);
+    }
+
     public function scopeType(Builder $query, string|null $type): QueryBuilder | Builder
     {
         if (!in_array($type, self::$types)) {
