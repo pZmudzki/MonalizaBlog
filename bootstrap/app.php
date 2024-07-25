@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Middleware\RegisterPostView;
+use App\Http\Middleware\RegisterUserVisit;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
@@ -11,7 +13,10 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware) {
-        //
+        $middleware->alias([
+            'visit' => RegisterUserVisit::class,
+            'view' => RegisterPostView::class
+        ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {
         //
