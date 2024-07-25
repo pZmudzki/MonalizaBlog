@@ -46,7 +46,11 @@ class CommentController extends Controller
      */
     public function highlight(Request $request, Comment $comment)
     {
-        //
+        $comment->update([
+            'starred' => !$comment->starred,
+        ]);
+
+        return redirect()->back()->with(['success', 'Pomyślnie dodano gwiazdkę do komentarza!']);
     }
 
     /**
