@@ -30,7 +30,7 @@ class CommentController extends Controller
             ->exists();
 
         if ($comment_exists) {
-            return redirect()->route('post.show', $post_id)->with(['error', 'Pod każdym postem można dodać tylko po jednym komentarzu na użytkownika']);
+            return redirect()->back()->with(['error', 'Pod każdym postem można dodać tylko po jednym komentarzu na użytkownika']);
         }
 
         Post::find($post_id)->comments()->create([
@@ -38,7 +38,7 @@ class CommentController extends Controller
             'visit_id' => $visit_id
         ]);
 
-        return redirect()->route('post.show', $post_id)->with(['success', 'Pomyślnie dodano komentarz!']);
+        return redirect()->back()->with(['success', 'Pomyślnie dodano komentarz!']);
     }
 
     /**
@@ -46,6 +46,8 @@ class CommentController extends Controller
      */
     public function highlight(Request $request, Comment $comment)
     {
+        Gate::authorize('update', Comment::class);
+
         $comment->update([
             'starred' => !$comment->starred,
         ]);
@@ -58,6 +60,6 @@ class CommentController extends Controller
      */
     public function destroy(Comment $comment)
     {
-        //
+        Gate::authorize('delete', Comment::class);
     }
 }
