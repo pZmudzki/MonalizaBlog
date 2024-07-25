@@ -9,7 +9,7 @@
                     <div class="flex gap-2 items-center justify-between">
                         <div>
                             <span>Comments: {{ $post->comments_count }}</span>
-                            <span>Views: 0</span>
+                            <span>Views: {{ $post->views_count }}</span>
                         </div>
                         <div class="flex gap-4">
                             <a href="{{ route('post.show', $post) }}" class="text-blue-700">Show more</a>

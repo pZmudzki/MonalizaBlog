@@ -22,6 +22,7 @@ class PostController extends Controller
             ->type($type)
             ->latest()
             ->withCount('comments')
+            ->withCount('views')
             ->get();
 
         return view(
@@ -97,7 +98,7 @@ class PostController extends Controller
      */
     public function show(Post $post)
     {
-        $post->load('comments');
+        $post->load('comments')->withCount('views');
 
         return view('post.show', ['post' => $post]);
     }
