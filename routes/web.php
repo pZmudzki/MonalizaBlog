@@ -10,9 +10,9 @@ Route::get('/', function () {
     return redirect()->route('post.index');
 });
 
-Route::resource('post', PostController::class)->only(['index'])->middleware('visit');
-Route::resource('post', PostController::class)->only(['show'])->middleware(['visit', 'view']);
-Route::resource('post', PostController::class)->except(['index', 'show']);
+Route::resource('post', PostController::class);
+Route::middleware('visit')->resource('post', PostController::class)->only(['index', 'show']);
+Route::middleware('view')->resource('post', PostController::class)->only('show');
 Route::put('/post/{post}/archive', [PostController::class, 'archive'])->name('post.archive');
 
 Route::middleware('throttle:comments')->resource('comment', CommentController::class)->only(['store']);
