@@ -9,7 +9,12 @@
             @endforeach
             <div class="flex flex-col items-center mt-4 gap-2">
                 @foreach ($post->files as $file)
-                    @if ($file->type === 'video')
+                    @if ($file->source === 'youtube')
+                        <iframe src="{{ $file->filepath }}" title="{{ $file->filename }}" frameborder="0"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                            referrerpolicy="strict-origin-when-cross-origin" allowfullscreen>
+                        </iframe>
+                    @elseif ($file->type === 'video')
                         <video controls>
                             <source src="{{ url('/') }}/storage/{{ $file->filepath }}">
                         </video>

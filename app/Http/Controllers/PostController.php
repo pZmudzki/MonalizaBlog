@@ -53,7 +53,10 @@ class PostController extends Controller
             'content' => 'required',
             'type' => 'required|in:' . implode(",", Post::$types),
             'images.*' => 'mimes:jpg,bmp,png,webp|max:4096',
-            'videos.*' => 'mimes:avi,mpeg,mp4|max:16384'
+            'videos.*' => 'mimes:avi,mpeg,mp4|max:16384',
+            'video_link' => 'nullable|url:http,https',
+            'video_link_title' => 'nullable|prohibited_if:video_link,null|max:255',
+
         ]);
 
         $post = Post::create([
@@ -62,6 +65,14 @@ class PostController extends Controller
             'type' => $validatedData['type'],
         ]);
 
+        if ($validatedData['video_link']) {
+            $post->files()->create([
+                'type' => 'video',
+                'filename' => $validatedData['video_link_title'],
+                'filepath' => $validatedData['video_link'],
+                'source' => 'youtube'
+            ]);
+        }
 
         $images = $request->file('images');
         if ($images) {
@@ -88,6 +99,7 @@ class PostController extends Controller
                 ]);
             }
         }
+
 
 
         return redirect()->route('post.index')->with('success', 'Pomyślnie utworzono nowy post');
@@ -126,11 +138,14 @@ class PostController extends Controller
             'type' => 'required|in:' . implode(",", Post::$types),
             'images.*' => 'mimes:jpg,bmp,png,webp|max:4096',
             'videos.*' => 'mimes:avi,mpeg,mp4|max:16384',
+            'video_link' => 'nullable|url:http,https',
+            'video_link_title' => 'nullable|prohibited_if:video_link,null|max:255',
             'deleteFiles' => 'array',
         ]);
 
         //file deletion logic
         if (array_key_exists('deleteFiles', $validatedData)) {
+
             foreach ($validatedData['deleteFiles'] as $fileId) {
 
                 // find an image
@@ -139,11 +154,19 @@ class PostController extends Controller
                 if (Storage::exists('public/' . $file->filepath)) {
                     // // delete image from storage
                     Storage::delete('public/' . $file->filepath);
-
-                    // //delete image from db
-                    $file->delete();
                 }
+                // //delete image from db
+                $file->delete();
             }
+        }
+
+        if ($validatedData['video_link']) {
+            $post->files()->create([
+                'type' => 'video',
+                'filename' => $validatedData['video_link_title'],
+                'filepath' => $validatedData['video_link'],
+                'source' => 'youtube'
+            ]);
         }
 
         $images = $request->file('images');

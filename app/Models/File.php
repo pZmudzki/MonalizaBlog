@@ -11,7 +11,7 @@ class File extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['type', 'filename', 'filepath'];
+    protected $fillable = ['type', 'filename', 'filepath', 'source'];
 
     public function post(): BelongsTo
     {

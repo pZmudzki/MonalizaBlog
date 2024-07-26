@@ -52,6 +52,17 @@
                 <input type="file" name="videos[]" accept="video/*" multiple id="videos"
                     value="{{ old('videos') }}" class="border border-black">
             </div>
+            <div class="flex gap-2">
+                <div class="flex flex-col grow">
+                    <x-label for="video_link">Link do nagrania YouTube</x-label>
+                    <x-text-input name="video_link" />
+                </div>
+                <div class="flex flex-col grow">
+                    <x-label for="video_link_title">Tytuł nagrania YouTube</x-label>
+                    <x-text-input name="video_link_title" />
+                </div>
+            </div>
+
             <div>
                 @if ($post)
                     @if ($post->files)
@@ -59,7 +70,13 @@
                         <ul class="list-none grid grid-cols-3 gap-2 mt-4">
                             @forelse ($post->files as $file)
                                 <li class="relative">
-                                    @if ($file->type === 'image')
+                                    @if ($file->source === 'youtube')
+                                        <iframe src="{{ $file->filepath }}" title="{{ $file->filename }}"
+                                            frameborder="0"
+                                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                            referrerpolicy="strict-origin-when-cross-origin" allowfullscreen>
+                                        </iframe>
+                                    @elseif ($file->type === 'image')
                                         <img src="{{ url('/') }}/storage/{{ $file->filepath }}"
                                             alt="{{ $file->filename }}">
                                     @else

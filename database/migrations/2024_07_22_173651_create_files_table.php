@@ -19,6 +19,7 @@ return new class extends Migration
             $table->enum('type', ['image', 'video']);
             $table->string('filepath');
             $table->string('filename');
+            $table->string('source')->nullable();
             $table->timestamps();
         });
     }
