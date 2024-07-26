@@ -17,6 +17,10 @@ class RegisterPostView
      */
     public function handle(Request $request, Closure $next): Response
     {
+        if (auth()->user()) {
+            return $next($request);
+        }
+
         $post = $request->route()->parameter('post');
 
         $visit_id = $request->session()->get('current_visit');
