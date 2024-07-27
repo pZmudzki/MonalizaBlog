@@ -1,0 +1,264 @@
+.header {
+    position: fixed;
+    height: 8rem;
+    width: 100%;
+    top: 0;
+    bottom: 0;
+    padding: 1.2rem 2.4rem;
+    display: flex;
+    justify-content: space-around;
+    background-color: #222831;
+    align-items: center;
+    z-index: 999;
+    transition: 200ms all ease;
+}
+
+.header.navHidden {
+    transform: translateY(-200px);
+    transition: 300ms all ease-in-out;
+}
+
+.header.navOpen {
+    background-color: #31363f;
+}
+
+.navList {
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    list-style: none;
+}
+
+.navLink:link,
+.navLink:visited {
+    position: relative;
+    color: #eee;
+    text-decoration: none;
+}
+
+.navLink:hover::after,
+.navLink:active::after {
+    content: "";
+    position: absolute;
+    width: 100%;
+    bottom: 0;
+    left: 0;
+    height: 1px;
+    background-color: #eee;
+    animation: animateUnderline 200ms ease-in-out;
+}
+
+.link {
+    font-weight: 600;
+    font-size: 1.8rem;
+}
+
+.logo {
+    user-select: none;
+    font-weight: 800;
+    font-size: 4.8rem;
+}
+
+.toggleNavBtn {
+    cursor: pointer;
+    position: relative;
+    display: none;
+    height: 2.4rem;
+    width: 3rem;
+    background-color: transparent;
+    border: none;
+}
+
+.toggleNavBtn > span {
+    border-radius: 100px;
+    height: 0.5rem;
+    width: 100%;
+    background-color: #eee;
+}
+
+.navOpen > .toggleNavBtn > span:nth-child(1),
+.navOpen > .toggleNavBtn > span:nth-child(2) {
+    position: absolute;
+    top: 50%;
+    transform: rotate(45deg);
+    transition: 300ms all ease-in-out;
+}
+.navOpen > .toggleNavBtn > span:nth-child(3) {
+    position: absolute;
+    top: 50%;
+    transform: rotate(135deg);
+    transition: 300ms all ease-in-out;
+}
+
+.mobileNavList {
+    position: fixed;
+    width: 100%;
+    top: 0;
+    bottom: 0;
+    z-index: 998;
+    background-color: #31363f;
+    animation: animateMobileMenu 300ms ease;
+}
+
+.mobileNavList > div {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 2.4rem;
+}
+
+.linkContainer {
+    height: 5rem;
+    position: relative;
+    width: 90%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    animation: animateUp 0.8s;
+    animation-delay: 1.2s;
+    animation-fill-mode: forwards;
+    animation-timing-function: cubic-bezier(0.075, 0.82, 0.165, 1);
+    transform: translateY(115%);
+}
+
+/* animate all links top to bottom with delays */
+
+.navLink:nth-child(1) .linkContainer {
+    animation-delay: 0.45s;
+}
+.navLink:nth-child(2) .linkContainer {
+    animation-delay: 0.6s;
+}
+.navLink:nth-child(3) .linkContainer {
+    animation-delay: 0.75s;
+}
+.navLink:nth-child(4) .linkContainer {
+    animation-delay: 0.95s;
+}
+
+.arrowIcon {
+    height: 3.2rem;
+    width: 3.2rem;
+    transition: 150ms all ease-in;
+}
+
+.navLink:hover .arrowIcon {
+    transform: rotate(-45deg);
+}
+
+.linkContainer::after {
+    position: absolute;
+    z-index: -1;
+    content: "";
+    top: 0;
+    bottom: 0;
+    width: 0;
+    transition: 300ms all ease;
+}
+
+.navLink:hover > .linkContainer::after {
+    width: 100%;
+    background-color: #76abae;
+}
+
+.socials {
+    display: flex;
+    gap: 0.5rem;
+    list-style: none;
+    margin-top: 9.6rem;
+}
+
+.socialIcon {
+    color: #8a8a8a;
+    height: 4rem;
+    width: 4rem;
+    transition: 300ms all ease;
+}
+
+.socialIcon:hover {
+    color: #76abae;
+}
+
+@keyframes animateMobileMenu {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+@keyframes animateUp {
+    100% {
+        transform: translateY(0%);
+    }
+}
+
+@keyframes animateUnderline {
+    0% {
+        width: 0;
+    }
+    100% {
+        width: 100%;
+    }
+}
+
+@media (max-width: 81em) {
+    .logo {
+        font-size: 2.8rem;
+    }
+    .link {
+        font-size: 1.2rem;
+    }
+}
+
+@media (max-width: 53em) {
+    .logo {
+        font-size: 2rem;
+    }
+    .link {
+        font-weight: 500;
+        font-size: 1rem;
+    }
+}
+
+@media (max-width: 40em) {
+    .navList {
+        display: none;
+    }
+
+    .header {
+        justify-content: space-between;
+    }
+
+    .toggleNavBtn {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+
+    .mobileNavList {
+        padding: 1.2rem 2.4rem;
+        display: flex;
+        justify-content: center;
+        align-items: end;
+    }
+
+    .navLink:link.link,
+    .navLink:visited.link {
+        overflow: hidden;
+        height: 5rem;
+    }
+
+    .navLink:hover::after,
+    .navLink:active::after {
+        display: none;
+    }
+
+    .link {
+        font-weight: 700;
+        font-size: 2rem;
+    }
+}

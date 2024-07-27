@@ -6,11 +6,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     @vite('resources/css/app.css')
+    @vite('resources/css/navbar.css')
+    @vite('resources/js/app.js')
     <title>MonalizaBezRamy</title>
 </head>
 
 <body class="bg-gray-400">
-    <header class="p-3 flex items-center justify-between">
+    {{-- <header class="p-3 flex items-center justify-between">
         <h1 class="text-2xl">
             <a href="{{ route('post.index') }}">MonalizaBezRamy</a>
         </h1>
@@ -24,16 +26,19 @@
                 </form>
             </div>
         @endif
-    </header>
-    <nav>
-        <ul class="flex justify-between p-3">
-            @foreach (['wierszem_pisane' => 'Wierszem Pisane', 'scenariusze_pisane_życiem' => 'Scenariusze Pisane Życiem', 'z_medycznego_punktu_widzenia' => 'Z Medycznego Punktu Widzenia', 'taniec' => 'Taniec'] as $key => $value)
+    </header> --}}
+    <x-navbar :links="[
+        'wierszem_pisane' => 'Wierszem Pisane',
+        'scenariusze_pisane_życiem' => 'Scenariusze Pisane Życiem',
+        'z_medycznego_punktu_widzenia' => 'Z Medycznego Punktu Widzenia',
+        'taniec' => 'Taniec',
+    ]" />
+
+    {{-- @foreach (['wierszem_pisane' => 'Wierszem Pisane', 'scenariusze_pisane_życiem' => 'Scenariusze Pisane Życiem', 'z_medycznego_punktu_widzenia' => 'Z Medycznego Punktu Widzenia', 'taniec' => 'Taniec'] as $key => $value)
                 <li>
                     <a href="{{ route('post.index', ['type' => $key]) }}">{{ $value }}</a>
                 </li>
-            @endforeach
-        </ul>
-    </nav>
+            @endforeach --}}
     <div class="container mx-auto max-w-2xl px-2">
         {{ $slot }}
     </div>
