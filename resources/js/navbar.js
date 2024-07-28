@@ -10,8 +10,14 @@ let lastScrollY = 0;
 window.addEventListener("scroll", () => {
     if (window.scrollY > lastScrollY) {
         header.classList.add("navHidden");
+        if (navOpen) {
+            mobileNav.classList.add("hidden");
+        }
     } else {
         header.classList.remove("navHidden");
+        if (navOpen) {
+            mobileNav.classList.remove("hidden");
+        }
     }
 
     lastScrollY = window.scrollY;
