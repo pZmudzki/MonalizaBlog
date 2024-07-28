@@ -39,7 +39,7 @@
                     <a href="{{ route('post.index', ['type' => $key]) }}">{{ $value }}</a>
                 </li>
             @endforeach --}}
-    <div class="container mx-auto max-w-2xl px-2">
+    <div class="container mx-auto max-w-2xl px-2 mt-20">
         {{ $slot }}
     </div>
 </body>

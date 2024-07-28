@@ -1,10 +1,10 @@
 .header {
     position: fixed;
-    height: 8rem;
+    height: 5rem;
     width: 100%;
     top: 0;
     bottom: 0;
-    padding: 1.2rem 2.4rem;
+    padding: 0.6rem 1.2rem;
     display: flex;
     justify-content: space-around;
     background-color: #222831;
@@ -51,28 +51,28 @@
 
 .link {
     font-weight: 600;
-    font-size: 1.8rem;
+    font-size: 0.9rem;
 }
 
 .logo {
     user-select: none;
     font-weight: 800;
-    font-size: 4.8rem;
+    font-size: 2.4rem;
 }
 
 .toggleNavBtn {
     cursor: pointer;
     position: relative;
     display: none;
-    height: 2.4rem;
-    width: 3rem;
+    height: 1.2rem;
+    width: 1.5rem;
     background-color: transparent;
     border: none;
 }
 
 .toggleNavBtn > span {
     border-radius: 100px;
-    height: 0.5rem;
+    height: 0.2rem;
     width: 100%;
     background-color: #eee;
 }
@@ -91,6 +91,10 @@
     transition: 300ms all ease-in-out;
 }
 
+.mobileNav {
+    height: 100%;
+}
+
 .mobileNavList {
     position: fixed;
     width: 100%;
@@ -105,11 +109,11 @@
     width: 100%;
     display: flex;
     flex-direction: column;
-    gap: 2.4rem;
+    gap: 1.2rem;
 }
 
 .linkContainer {
-    height: 5rem;
+    height: 4rem;
     position: relative;
     width: 90%;
     display: flex;
@@ -120,7 +124,7 @@
     animation-delay: 1.2s;
     animation-fill-mode: forwards;
     animation-timing-function: cubic-bezier(0.075, 0.82, 0.165, 1);
-    transform: translateY(115%);
+    transform: translateY(150%);
 }
 
 /* animate all links top to bottom with delays */
@@ -207,20 +211,20 @@
 
 @media (max-width: 81em) {
     .logo {
-        font-size: 2.8rem;
+        font-size: 1.4rem;
     }
     .link {
-        font-size: 1.2rem;
+        font-size: 0.6rem;
     }
 }
 
 @media (max-width: 53em) {
     .logo {
-        font-size: 2rem;
+        font-size: 1rem;
     }
     .link {
         font-weight: 500;
-        font-size: 1rem;
+        font-size: 0.5rem;
     }
 }
 
@@ -259,6 +263,6 @@
 
     .link {
         font-weight: 700;
-        font-size: 2rem;
+        font-size: 1rem;
     }
 }
