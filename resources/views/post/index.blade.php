@@ -1,4 +1,5 @@
 <x-layout>
+    <x-hero-section />
     <ul class="flex flex-col gap-4">
         @forelse ($posts as $post)
             <li>
