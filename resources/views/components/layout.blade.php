@@ -11,7 +11,7 @@
     <title>MonalizaBezRamy</title>
 </head>
 
-<body class="bg-gray-400">
+<body class="bg-gray-900">
     <x-navbar :links="[
         'taniec' => 'Taniec',
         'wierszem_pisane' => 'Wierszem Pisane',
