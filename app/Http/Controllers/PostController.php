@@ -23,7 +23,7 @@ class PostController extends Controller
             ->latest()
             ->withCount('comments')
             ->withCount('views')
-            ->get();
+            ->paginate(10);
 
         return view(
             'post.index',
