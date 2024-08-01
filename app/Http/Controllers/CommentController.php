@@ -31,7 +31,7 @@ class CommentController extends Controller
             'visit_id' => $visit_id
         ]);
 
-        return redirect()->back()->with(['success', 'Pomyślnie dodano komentarz!']);
+        return redirect()->back()->with('success', 'Pomyślnie dodano komentarz!');
     }
 
     /**
@@ -45,7 +45,7 @@ class CommentController extends Controller
             'starred' => !$comment->starred,
         ]);
 
-        return redirect()->back()->with(['success', 'Pomyślnie dodano gwiazdkę do komentarza!']);
+        return redirect()->back()->with('success', 'Pomyślnie dodano gwiazdkę do komentarza!');
     }
 
     /**
@@ -57,6 +57,6 @@ class CommentController extends Controller
 
         $comment->delete();
 
-        return redirect()->back()->with(['success', 'Pomyślnie usunięto komentarz!']);
+        return redirect()->back()->with('success', 'Pomyślnie usunięto komentarz!');
     }
 }
