@@ -1,6 +1,6 @@
 <x-layout>
     <x-hero-section />
-    <ul class="flex flex-col gap-4">
+    <ul class="flex flex-col gap-4 container mx-auto max-w-3xl">
         @forelse ($posts as $post)
             <li>
                 <x-post-card :post="$post">
