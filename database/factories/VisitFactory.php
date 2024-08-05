@@ -18,7 +18,7 @@ class VisitFactory extends Factory
     {
         return [
             'ip_address' => fake()->ipv4(),
-            'created_at' => fake()->dateTime()
+            'created_at' => fake()->dateTimeBetween('-1 year', 'now'),
         ];
     }
 }
