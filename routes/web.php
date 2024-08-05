@@ -26,4 +26,5 @@ Route::delete('logout', fn () => to_route('auth.destroy'))->name('logout');
 Route::resource('auth', AuthController::class)->only(['create', 'store']);
 Route::delete('auth', [AuthController::class, 'destroy'])->name('auth.destroy');
 
-Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard.index')->middleware('auth');
+Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard.index')->middleware('auth');
+Route::get('dashboard/posts', [DashboardController::class, 'posts'])->name('dashboard.posts')->middleware('auth');

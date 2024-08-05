@@ -15,7 +15,6 @@ class DashboardController extends Controller
     {
 
         $months = ['Styczeń', 'Luty', 'Marzec', 'Kwiecień', 'Maj', 'Czerwiec', 'Lipiec', 'Sierpień', 'Wrzesień', 'Październik', 'Listopad', 'Grudzień'];
-        // $posts = Post::query()->with('views')->with()
 
         $visits = Visit::query()
             ->selectRaw('count(id) as count, month(created_at) as month')
@@ -23,10 +22,7 @@ class DashboardController extends Controller
             ->groupBy('month')
             ->get();
 
-
         $visits = $visits->pluck('count')->toArray();
-
-        // dd($visits);
 
 
         $visitsData = [
@@ -35,5 +31,16 @@ class DashboardController extends Controller
         ];
 
         return view('dashboard.index', ['visitsData' => $visitsData]);
+    }
+
+    public function posts(Request $request)
+    {
+        $posts = Post::query()
+            ->withCount('comments')
+            ->withCount('views')
+            ->latest()
+            ->get();
+
+        return view('dashboard.posts', ['posts' => $posts]);
     }
 }
