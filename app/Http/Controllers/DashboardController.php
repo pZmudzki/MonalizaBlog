@@ -36,6 +36,7 @@ class DashboardController extends Controller
     public function posts(Request $request)
     {
         $posts = Post::query()
+            ->type($request->query('type'))
             ->withCount('comments')
             ->withCount('views')
             ->latest()
