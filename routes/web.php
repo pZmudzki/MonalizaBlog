@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CommentController;
+use App\Http\Controllers\DashboardController;
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\PostController;
@@ -24,3 +25,5 @@ Route::delete('logout', fn () => to_route('auth.destroy'))->name('logout');
 
 Route::resource('auth', AuthController::class)->only(['create', 'store']);
 Route::delete('auth', [AuthController::class, 'destroy'])->name('auth.destroy');
+
+Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard.index')->middleware('auth');
