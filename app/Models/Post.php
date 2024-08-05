@@ -40,4 +40,40 @@ class Post extends Model
 
         return $query->where('type', '=', $type);
     }
+
+    public function scopeTitleOrContent(Builder $query, string|null $search): QueryBuilder | Builder
+    {
+        return $query->where('title', 'like', "%$search%")
+            ->orWhere('content', 'like', "%$search%");
+    }
+
+    public function scopeSortBy(Builder $query, string $key): QueryBuilder | Builder
+    {
+        $possibleKeys = ['all', 'newest', 'oldest', 'title-za', 'title-az', 'views-most', 'views-least', 'comments-most', 'comments-least'];
+
+        if (!in_array($key, $possibleKeys)) {
+            return $query;
+        }
+
+        switch ($key) {
+            case 'newest':
+                return $query->latest();
+            case 'oldest':
+                return $query->oldest();
+            case 'title-za':
+                return $query->orderBy('title', 'desc');
+            case 'title-az':
+                return $query->orderBy('title', 'asc');
+            case 'views-most':
+                return $query->withCount('views')->orderBy('views_count', 'desc');
+            case 'views-least':
+                return $query->withCount('views')->orderBy('views_count', 'asc');
+            case 'comments-most':
+                return $query->withCount('comments')->orderBy('comments_count', 'desc');
+            case 'comments-least':
+                return $query->withCount('comments')->orderBy('comments_count', 'asc');
+            default:
+                return $query;
+        }
+    }
 }

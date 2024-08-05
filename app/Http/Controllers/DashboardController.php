@@ -37,9 +37,10 @@ class DashboardController extends Controller
     {
         $posts = Post::query()
             ->type($request->query('type'))
+            ->titleOrContent($request->query('search'))
+            ->sortBy($request->query('sort'))
             ->withCount('comments')
             ->withCount('views')
-            ->latest()
             ->get();
 
         return view('dashboard.posts', ['posts' => $posts]);

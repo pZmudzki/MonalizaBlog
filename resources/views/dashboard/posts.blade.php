@@ -30,7 +30,7 @@
                     <x-label for="sort">Sortuj</x-label>
                     <select name="sort" id="sort" value="{{ old('sort') }}"
                         class="w-full rounded-md border border-black px-2">
-                        @foreach (['all' => 'Wszystkie', 'title-za' => 'A do Z', 'title-az' => 'Z do A', 'views-most' => 'Wyświetlenia ↑', 'views-least' => 'Wyświetlenia ↓', 'comments-most' => 'Komentarze ↑', 'comments-least' => 'Komentarze ↓'] as $key => $value)
+                        @foreach (['all' => 'Wszystkie', 'newest' => 'Od najnowszego', 'oldest' => 'Od najstarszego', 'title-za' => 'A do Z', 'title-az' => 'Z do A', 'views-most' => 'Wyświetlenia ↑', 'views-least' => 'Wyświetlenia ↓', 'comments-most' => 'Komentarze ↑', 'comments-least' => 'Komentarze ↓'] as $key => $value)
                             <option value="{{ $key }}" class="w-full"
                                 {{ request()->query('sort') === $key ? 'selected' : '' }}>{{ $value }}</option>
                         @endforeach
