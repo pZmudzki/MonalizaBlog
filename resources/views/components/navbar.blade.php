@@ -59,13 +59,17 @@
             @endforeach
 
             @if (auth()->user())
-                <div class="flex gap-4">
-                    <a href="{{ route('post.create') }}" class="grow text-center bg-gray-200 p-2">Utwórz post</a>
-                    <form action="{{ route('auth.destroy') }}" method="POST" class="grow">
-                        @csrf
-                        @method('DELETE')
-                        <button class="w-full text-center bg-red-300 p-2">Wyloguj</button>
-                    </form>
+                <div class="flex flex-col gap-4">
+                    <div class="flex gap-4">
+                        <a href="{{ route('post.create') }}" class="grow text-center bg-gray-200 p-2">Utwórz post</a>
+                        <form action="{{ route('auth.destroy') }}" method="POST" class="grow">
+                            @csrf
+                            @method('DELETE')
+                            <button class="w-full text-center bg-red-300 p-2">Wyloguj</button>
+                        </form>
+                    </div>
+                    <a href="{{ route('dashboard.index') }}" class="grow text-center bg-gray-200 p-2">Panel
+                        sterowania</a>
                 </div>
             @endif
 
