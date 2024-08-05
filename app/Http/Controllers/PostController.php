@@ -19,6 +19,11 @@ class PostController extends Controller
         $type = $request->query('type');
 
         $posts = Post::query()
+            ->when(!auth()->user(), function ($query) {
+                return $query
+                    ->where('archived', false)
+                    ->orWhere('archived', null);
+            })
             ->type($type)
             ->latest()
             ->withCount('comments')
@@ -110,6 +115,10 @@ class PostController extends Controller
      */
     public function show(Post $post)
     {
+        if ($post->archived && !auth()->user()) {
+            return abort(404);
+        }
+
         $post->load('comments')->withCount('views');
 
         return view('post.show', ['post' => $post]);
