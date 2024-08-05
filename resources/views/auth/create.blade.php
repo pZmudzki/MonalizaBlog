@@ -9,7 +9,7 @@
             </div>
             <div>
                 <x-label for="password">Hasło:</x-label>
-                <x-text-input name="password" placeholder="Hasło" />
+                <x-text-input type="password" name="password" placeholder="Hasło" />
             </div>
             <div class="flex gap-2">
                 <x-label for="remember">Zapamiętaj</x-label>
