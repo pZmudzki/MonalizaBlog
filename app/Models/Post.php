@@ -76,4 +76,30 @@ class Post extends Model
                 return $query;
         }
     }
+
+    protected static function booted(): void
+    {
+        static::deleting(function (Post $post) {
+            $post->files->each->delete();
+            $post->comments->each->delete();
+            $post->views->each->delete();
+        });
+
+        static::updated(function (Post $post) {
+            cache()->forget('post:' . $post->id);
+            cache()->forget('posts:' . $post->type . ',user:' . auth()->id());
+            cache()->forget('posts:' . $post->type . ',user:');
+        });
+
+        static::deleted(function (Post $post) {
+            cache()->forget('post:' . $post->id);
+            cache()->forget('posts:' . $post->type . ',user:' . auth()->id());
+            cache()->forget('posts:' . $post->type . ',user:');
+        });
+
+        static::created(function (Post $post) {
+            cache()->forget('posts:' . $post->type . ',user:' . auth()->id());
+            cache()->forget('posts:' . $post->type . ',user:');
+        });
+    }
 }
