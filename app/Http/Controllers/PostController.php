@@ -18,17 +18,25 @@ class PostController extends Controller
     {
         $type = $request->query('type');
 
-        $posts = Post::query()
-            ->when(!auth()->user(), function ($query) {
-                return $query
-                    ->where('archived', false)
-                    ->orWhere('archived', null);
-            })
-            ->type($type)
-            ->latest()
-            ->withCount('comments')
-            ->withCount('views')
-            ->paginate(10);
+
+        $cacheKey = 'posts:' . $type;
+
+        $posts = cache()->remember(
+            $cacheKey,
+            3600,
+            function () use ($type) {
+                return Post::when(!auth()->user(), function ($query) {
+                    return $query
+                        ->where('archived', false)
+                        ->orWhere('archived', null);
+                })
+                    ->type($type)
+                    ->latest()
+                    ->withCount('comments')
+                    ->withCount('views')
+                    ->paginate(10);
+            }
+        );
 
         return view(
             'post.index',
