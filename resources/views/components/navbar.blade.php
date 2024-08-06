@@ -19,18 +19,36 @@
         <a href="{{ route('post.index', ['type' => 'taniec']) }}" class="navLink link">
             Taniec
         </a>
-    </nav>
 
-    @if (auth()->user())
-        <div class="flex gap-4 navList">
-            <a href="{{ route('post.create') }}" class="bg-gray-200 p-2">Utwórz post</a>
-            <form action="{{ route('auth.destroy') }}" method="POST">
-                @csrf
-                @method('DELETE')
-                <button class="bg-red-300 p-2">Wyloguj</button>
-            </form>
-        </div>
-    @endif
+        @if (auth()->user())
+            <div class="gap-4 flex items-center">
+                <a href="{{ route('post.create') }}" class=" text-center bg-gray-200 p-2">
+                    <svg height="24" viewBox="0 0 24 24" width="24">
+                        <path
+                            d="M13,3 L5,3 L5,21 L15,21 L15,23 L5,23 C3.8954305,23 3,22.1045695 3,21 L3,3 C3,1.8954305 3.8954305,1 5,1 L15.4142136,1 L21,6.58578644 L21,14 L19,14 L19,9 L15,9 C13.8954305,9 13,8.1045695 13,7 L13,3 Z M19,19 L19,17 L21,17 L21,19 L23,19 L23,21 L21,21 L21,23 L19,23 L19,21 L17,21 L17,19 L19,19 Z M18.5857864,7 L15,3.41421356 L15,7 L18.5857864,7 Z" />
+                    </svg>
+                </a>
+                <a href="{{ route('dashboard.index') }}" class=" text-center bg-gray-200 p-2">
+                    <svg height="24" viewBox="0 0 24 24" width="24">
+                        <path
+                            d="M4 13h6a1 1 0 0 0 1-1V4a1 1 0 0 0-1-1H4a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1zm-1 7a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-4a1 1 0 0 0-1-1H4a1 1 0 0 0-1 1v4zm10 0a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-7a1 1 0 0 0-1-1h-6a1 1 0 0 0-1 1v7zm1-10h6a1 1 0 0 0 1-1V4a1 1 0 0 0-1-1h-6a1 1 0 0 0-1 1v5a1 1 0 0 0 1 1z" />
+                    </svg>
+                </a>
+                <form action="{{ route('auth.destroy') }}" method="POST">
+                    @csrf
+                    @method('DELETE')
+                    <button class="w-full text-center bg-red-300 p-2">
+                        <svg fill="none" height="24" viewBox="0 0 24 24" width="24">
+                            <path d="M15 3H7C5.89543 3 5 3.89543 5 5V19C5 20.1046 5.89543 21 7 21H15" stroke="black"
+                                stroke-linecap="round" stroke-linejoin="round" stroke-width="2" />
+                            <path d="M19 12L15 8M19 12L15 16M19 12H9" stroke="black" stroke-linecap="round"
+                                stroke-linejoin="round" stroke-width="2" />
+                        </svg>
+                    </button>
+                </form>
+            </div>
+        @endif
+    </nav>
 
     {{-- burger menu button --}}
     <button class="toggleNavBtn">
