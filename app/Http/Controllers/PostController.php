@@ -19,7 +19,7 @@ class PostController extends Controller
         $type = $request->query('type');
 
 
-        $cacheKey = 'posts:' . $type;
+        $cacheKey = 'posts:' . $type . ',user:' . auth()->id();
 
         $posts = cache()->remember(
             $cacheKey,
