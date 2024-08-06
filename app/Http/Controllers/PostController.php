@@ -121,13 +121,23 @@ class PostController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Post $post)
+    public function show(int $id)
     {
+        $cacheKey = 'post:' . $id;
+
+        $post = cache()->remember(
+            $cacheKey,
+            3600,
+            function () use ($id) {
+                return Post::with('comments')
+                    ->withCount('views')
+                    ->find($id);
+            }
+        );
+
         if ($post->archived && !auth()->user()) {
             return abort(404);
         }
-
-        $post->load('comments')->withCount('views');
 
         return view('post.show', ['post' => $post]);
     }
