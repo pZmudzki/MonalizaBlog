@@ -21,7 +21,7 @@ class RegisterPostView
             return $next($request);
         }
 
-        $post = $request->route()->parameter('post');
+        $post = Post::find($request->route()->parameter('post'));
 
         $visit_id = $request->session()->get('current_visit');
 
